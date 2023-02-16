@@ -1,23 +1,34 @@
 import { FC } from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { Zone } from "./ZoneDetails";
+import { Alert, StyleSheet, Text, View } from "react-native";
+import ZoneDetails, { Zone } from "./ZoneDetails";
 
 export type Controller = {
   id?: number;
-  zones: Zone[];
+  zones?: Zone[];
 };
 
 export interface ControllerDetailsProps {
   controller: Controller;
+  onZoneClick: () => void;
 }
 
 export const ControllerDetails: FC<ControllerDetailsProps> = ({
-  controller
+  controller,
+  onZoneClick
 }) => {
   return (
     <View style={styles.container}>
       <Text>I am a controller details page!</Text>
 
+      {controller.zones?.map((zone, index) => (
+        <ZoneDetails
+          key={index}
+          zone={zone}
+          onIconClick={() => {
+            Alert.alert("pressed");
+          }}
+        />
+      ))}
     </View>
   );
 };

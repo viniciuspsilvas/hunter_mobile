@@ -6,11 +6,12 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "test": "jest",
+    "test": "jest --watch",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "expo": "^47.0.0",
+    "expo-image": "^1.0.0-rc.1",
     "expo-status-bar": "~1.4.2",
     "react": "18.1.0",
     "react-dom": "18.1.0",
@@ -19,7 +20,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",
-    "@testing-library/jest-native": "^5.4.0",
+    "@testing-library/jest-native": "^5.4.1",
     "@testing-library/react-native": "^11.4.0",
     "@types/jest": "^29.4.0",
     "@types/react": "~18.0.24",
