@@ -1,81 +1,20 @@
-import { useEffect, useState } from "react";
-import { Controller } from "../components/ControllerDetails";
+import { useEffect } from "react";
+import { Zone } from "../components/ZoneDetails";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import { getData, setData, startZone } from "../redux/zoneControllerSlice";
+import {
+  getData,
+  setData,
+  toggleZoneStatus
+} from "../redux/zoneControllerSlice";
 
-const DATA = {
-  id: 1,
-  zones: [
-    {
-      id: 13,
-      name: "Zone 1",
-      icon: {
-        id: 1,
-        fileName: "leaf.png"
-      },
-      suspended: false,
-      status: {
-        running: true
-      }
-    },
-    {
-      id: 14,
-      name: "Zone 2",
-      icon: {
-        id: 1,
-        fileName: "leaf.png"
-      },
-      suspended: true,
-      status: {
-        running: false
-      }
-    },
-    {
-      id: 7834,
-      name: "Zone 3",
-      icon: {
-        id: 1,
-        fileName: null
-      },
-      suspended: false,
-      status: {
-        running: false
-      }
-    },
-    {
-      id: 7843,
-      name: "Zone 4",
-      icon: {
-        id: 1,
-        fileName: "leaf.png",
-        customImage: null
-      },
-      suspended: false,
-      status: {
-        running: false
-      }
-    },
-    {
-      id: 7844,
-      name: "Zone 5",
-      icon: {
-        id: 1,
-        fileName: "leaf.png"
-      },
-      suspended: false,
-      status: {
-        running: false
-      }
-    }
-  ]
-};
+import myData from "../../assets/data.json";
 
 export function useData() {
   const data = useAppSelector(getData);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(setData(DATA));
+    dispatch(setData(myData.data.controller));
     // TODO:
     // fetch("./data.json")
     //   .then((response) => response.json())
@@ -86,8 +25,10 @@ export function useData() {
   return { data };
 }
 
-export function useStartZone() {
+export function useZoneActions() {
   const dispatch = useAppDispatch();
-  
-  return { startZone: () => dispatch(startZone) };
+
+  return {
+    toggleZoneStatus: (zone: Zone) => dispatch(toggleZoneStatus(zone))
+  };
 }

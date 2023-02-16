@@ -1,7 +1,5 @@
 import * as React from "react";
-import { useData } from "../hooks/hooks";
-import { useAppDispatch } from "../redux/hooks";
-import { startZone, stopZone } from "../redux/zoneControllerSlice";
+import { useData, useZoneActions } from "../hooks/hooks";
 import ControllerDetails from "./ControllerDetails";
 import { Zone } from "./ZoneDetails";
 
@@ -9,14 +7,10 @@ type Props = {};
 
 export function Home({}: Props) {
   const { data } = useData();
-  const dispatch = useAppDispatch();
+  const { toggleZoneStatus } = useZoneActions();
 
   const handleZoneClick = (zone: Zone) => {
-    if (zone.status?.running) {
-      dispatch(stopZone(zone));
-    } else {
-      dispatch(startZone(zone));
-    }
+    toggleZoneStatus(zone);
   };
 
   return <ControllerDetails controller={data} onZoneClick={handleZoneClick} />;

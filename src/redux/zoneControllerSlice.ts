@@ -3,6 +3,7 @@ import { Controller } from "../components/ControllerDetails";
 import { Zone } from "../components/ZoneDetails";
 import { RootState } from "./store";
 
+
 export interface ZoneControllerState {
   data: Controller;
   error: string | null;
@@ -37,26 +38,16 @@ export const zoneControllerSlice = createSlice({
       state.error = action.payload;
     },
 
-    startZone: (state, action: PayloadAction<Zone>) => {
+    toggleZoneStatus: (state, action: PayloadAction<Zone>) => {
       const zones = state.data.zones;
 
       if (zones) {
         const index = zones.findIndex((zone) => zone.id === action.payload.id);
         if (index > -1) {
           const newZones = [...zones];
-          newZones[index].status = { running: true };
-          state.data.zones = newZones;
-        }
-      }
-    },
-
-    stopZone: (state, action: PayloadAction<Zone>) => {
-      const zones = state.data.zones;
-      if (zones) {
-        const index = zones.findIndex((zone) => zone.id === action.payload.id);
-        if (index > -1) {
-          const newZones = [...zones];
-          newZones[index].status = { running: false };
+          newZones[index].status = {
+            running: !newZones[index].status?.running
+          };
           state.data.zones = newZones;
         }
       }
@@ -64,7 +55,7 @@ export const zoneControllerSlice = createSlice({
   }
 });
 
-export const { setData, setError, startZone, stopZone } =
+export const { setData, setError, toggleZoneStatus } =
   zoneControllerSlice.actions;
 
 export const getData = (state: RootState) => state.zoneController.data;
