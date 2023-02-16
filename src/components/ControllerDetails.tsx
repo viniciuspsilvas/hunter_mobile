@@ -1,12 +1,7 @@
 import { FC, PropsWithChildren } from "react";
 import { Dimensions, FlatList, StyleSheet, Text, View } from "react-native";
-import ZoneDetails, { Zone } from "./ZoneDetails";
-
-// TODO: Extract the model
-export type Controller = {
-  id?: number;
-  zones?: Zone[];
-};
+import { Controller, Zone } from "../types";
+import ZoneDetails from "./ZoneDetails";
 
 export interface ControllerDetailsProps extends PropsWithChildren {
   children?: React.ReactNode;

@@ -1,13 +1,13 @@
 import { useEffect } from "react";
-import { Zone } from "../components/ZoneDetails";
-import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { useAppDispatch, useAppSelector } from "./redux/hooks";
 import {
   getData,
   setData,
   toggleZoneStatus
-} from "../redux/zoneControllerSlice";
+} from "./redux/zoneControllerSlice";
 
-import myData from "../../assets/data.json";
+import myData from "../assets/data.json";
+import { Zone } from "./types";
 
 export function useData() {
   const data = useAppSelector(getData);

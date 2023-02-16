@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useData, useZoneActions } from "../hooks/hooks";
+import { useData, useZoneActions } from "../hooks";
 import ControllerDetails from "./ControllerDetails";
 import { Zone } from "./ZoneDetails";
 
