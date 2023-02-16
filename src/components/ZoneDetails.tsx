@@ -3,10 +3,10 @@ import { Alert, Image, Pressable, StyleSheet, Text, View } from "react-native";
 
 export type Zone = {
   id?: number;
-  name: string;
+  name?: string;
   icon?: {
     id?: number;
-    fileName?: string;
+    fileName?: string | null;
   };
   suspended?: boolean;
   status?: {
@@ -16,7 +16,7 @@ export type Zone = {
 
 export interface ZoneDetailsProps {
   zone: Zone;
-  onIconClick: () => void;
+  onIconClick: (zone: Zone) => void;
 }
 
 export const ZoneDetails = ({ zone, onIconClick }: ZoneDetailsProps) => {
@@ -24,19 +24,19 @@ export const ZoneDetails = ({ zone, onIconClick }: ZoneDetailsProps) => {
     <Image
       testID="runningIcon"
       style={styles.image}
-      source={require("./images/running.png")}
+      source={require("./images/running.png")} // TODO: move images
     />
   ) : (
     <Image
       testID="image"
       style={styles.image}
-      source={require("./images/leaf.png")}
+      source={require("./images/leaf.png")} // TODO: change to use the zone.icon.fileName
     />
   );
 
   return (
     <View style={styles.container}>
-      <Pressable testID="iconPressable" onPress={onIconClick}>
+      <Pressable testID="iconPressable" onPress={() => onIconClick(zone)}>
         {icon}
       </Pressable>
 
@@ -53,10 +53,14 @@ export const ZoneDetails = ({ zone, onIconClick }: ZoneDetailsProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    borderColor: "red",
+    borderWidth: 1,
+    width: 120,
+    height: 120,
+    margin: 10
   },
   image: {
     width: 50,

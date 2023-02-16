@@ -1,6 +1,6 @@
 import * as React from "react";
 import { render, screen, fireEvent } from "@testing-library/react-native";
-import ZoneDetails, { Zone } from "../components/ZoneDetails";
+import ZoneDetails, { Zone } from "../src/components/ZoneDetails";
 
 test("renders 'name' property", () => {
   const zone: Zone = {
