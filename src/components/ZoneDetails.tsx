@@ -1,5 +1,12 @@
 import * as React from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  ActivityIndicator,
+  Alert,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View
+} from "react-native";
 import { Zone } from "../types";
 import { ZoneImage } from "./ZoneImage";
 
@@ -9,46 +16,84 @@ export interface ZoneDetailsProps {
 }
 
 export const ZoneDetails = ({ zone, onIconClick }: ZoneDetailsProps) => {
-  const icon = zone.status?.running
-    ? ZoneImage.GetImage("running.png")
-    : ZoneImage.GetImage(zone.icon?.fileName);
+  const isRunning = !!zone.status?.running;
+  const isSuspended = !!zone.suspended;
+
+  const icon = isRunning ? (
+    <ActivityIndicator testID="runningIcon" size="large" color="#F0EA4B" style={{ margin: 7 }} />
+  ) : (
+    ZoneImage.GetImage(zone.icon?.fileName)
+  );
+
+  const handleOnClick = () => {
+    if (isSuspended) {
+      Alert.alert("This zone is SUSPENDED and you can not run it.");
+    } else {
+      onIconClick(zone);
+    }
+  };
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        isSuspended
+          ? { backgroundColor: "#BA8181" }
+          : isRunning
+          ? { backgroundColor: "#C3B847" }
+          : { backgroundColor: "#83B99E" }
+      ]}
+    >
       <TouchableOpacity
         testID="iconPressable"
-        onPress={() => onIconClick(zone)}
+        onPress={handleOnClick}
       >
         {icon}
       </TouchableOpacity>
 
-      <Text testID="name">{zone.name}</Text>
-      <Text testID="suspended">
-        Suspended: {zone.suspended ? "True" : "False"}
+      <Text style={styles.name} testID="name">
+        {zone.name}
       </Text>
-      <Text testID="status">
-        Running: {zone.status?.running ? "True" : "False"}
-      </Text>
+      {isSuspended && (
+        <Text style={styles.text} testID="suspended">
+          Suspended
+        </Text>
+      )}
+
+      {isRunning && (
+        <Text style={styles.text} testID="status">
+          Running...
+        </Text>
+      )}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#d9d9d9",
     shadowColor: "#000000",
-    shadowOpacity: 0.8,
+    shadowOpacity: 0.4,
     shadowRadius: 2,
     shadowOffset: {
-      height: 1,
-      width: 1
+      height: 4,
+      width: 2
     },
     alignItems: "center",
+    padding: 10,
     justifyContent: "center",
-    borderRadius: 5,
+    borderRadius: 10,
     width: 120,
     height: 120,
     margin: 10
+  },
+  name: {
+    fontSize: 18,
+    color: "#FFF"
+  },
+  text: {
+    fontSize: 12,
+    color: "#FFF",
+    fontStyle: "italic"
   }
 });
 

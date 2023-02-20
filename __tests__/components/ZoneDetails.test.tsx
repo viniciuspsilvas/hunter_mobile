@@ -1,21 +1,19 @@
 import * as React from "react";
 import { render, screen, fireEvent } from "@testing-library/react-native";
-import ZoneDetails, { Zone } from "../src/components/ZoneDetails";
+import ZoneDetails from "../../src/components/ZoneDetails";
+import { Zone } from "../../src/types";
+
+let zone: Zone;
+
+beforeEach(() => {
+  zone = {
+    id: 1,
+    name: "Zone 1",
+    suspended: false
+  };
+});
 
 test("renders 'name' property", () => {
-  const zone: Zone = {
-    id: 13,
-    name: "Zone 1",
-    icon: {
-      id: 1,
-      fileName: "leaf.png"
-    },
-    suspended: false,
-    status: {
-      running: true
-    }
-  };
-
   const mockCallback = jest.fn();
   render(<ZoneDetails zone={zone} onIconClick={mockCallback} />);
 
@@ -23,57 +21,23 @@ test("renders 'name' property", () => {
 });
 
 test("renders 'suspended' equals 'true", () => {
-  const zone: Zone = {
-    id: 13,
-    name: "Zone 1",
-    icon: {
-      id: 1,
-      fileName: "leaf.png"
-    },
-    suspended: true,
-    status: {
-      running: true
-    }
-  };
-
+  zone.suspended = true;
   const mockCallback = jest.fn();
   render(<ZoneDetails zone={zone} onIconClick={mockCallback} />);
 
-  expect(screen.getByTestId("suspended")).toHaveTextContent("Suspended: True");
+  expect(screen.getByTestId("suspended")).toHaveTextContent("Suspended");
 });
 
 test("renders 'suspended' equals 'false", () => {
-  const zone: Zone = {
-    id: 13,
-    name: "Zone 1",
-    icon: {
-      id: 1,
-      fileName: "leaf.png"
-    },
-    suspended: false,
-    status: {
-      running: true
-    }
-  };
-
   const mockCallback = jest.fn();
   render(<ZoneDetails zone={zone} onIconClick={mockCallback} />);
 
-  expect(screen.getByTestId("suspended")).toHaveTextContent("Suspended: False");
+  expect(screen.queryByTestId("suspended")).toBeNull();
 });
 
 test("renders ZoneDetails with status.running = true", () => {
-  const zone: Zone = {
-    id: 13,
-    name: "Zone 1",
-    icon: {
-      id: 1,
-      fileName: "leaf.png"
-    },
-    suspended: false,
-    status: {
-      running: true
-    }
+  zone.status = {
+    running: true
   };
 
   const mockCallback = jest.fn();
@@ -81,37 +45,23 @@ test("renders ZoneDetails with status.running = true", () => {
 
   expect(screen.getByTestId("name")).toBeOnTheScreen();
   expect(screen.getByTestId("runningIcon")).toBeOnTheScreen();
-  expect(screen.getByTestId("suspended")).toBeOnTheScreen();
   expect(screen.getByTestId("status")).toBeOnTheScreen();
-  expect(screen.getByTestId("status")).toHaveTextContent("Running: True");
+  expect(screen.getByTestId("status")).toHaveTextContent("Running...");
 });
 
 test("renders ZoneDetails with status.running = false", () => {
-  const zone: Zone = {
-    id: 13,
-    name: "Zone 1",
-    icon: {
-      id: 1,
-      fileName: "leaf.png"
-    },
-    suspended: false,
-    status: {
-      running: false
-    }
+  zone.status = {
+    running: false
   };
 
   const mockCallback = jest.fn();
   render(<ZoneDetails zone={zone} onIconClick={mockCallback} />);
 
   expect(screen.getByTestId("name")).toBeOnTheScreen();
-  expect(screen.getByTestId("image")).toBeOnTheScreen();
-  expect(screen.getByTestId("suspended")).toBeOnTheScreen();
-  expect(screen.getByTestId("status")).toBeOnTheScreen();
-  expect(screen.getByTestId("status")).toHaveTextContent("Running: False");
+  expect(screen.queryByTestId("runningIcon")).toBeNull();
 });
 
-
-test("renders ZoneDetails onIconClick function", () => {
+test("ZoneDetails onIconClick function", () => {
   const zone: Zone = {
     id: 13,
     name: "Zone 1",
@@ -130,4 +80,28 @@ test("renders ZoneDetails onIconClick function", () => {
   render(<ZoneDetails zone={zone} onIconClick={onPressMock} />);
   fireEvent.press(screen.getByTestId("iconPressable"));
   expect(onPressMock.mock.calls).toHaveLength(1);
+});
+
+test("renders ZoneDetails with with icon", () => {
+  zone.icon = {
+    id: 1,
+    fileName: "leaf.png"
+  };
+
+  const mockCallback = jest.fn();
+  render(<ZoneDetails zone={zone} onIconClick={mockCallback} />);
+
+  expect(screen.getByTestId("leaf.png")).toBeOnTheScreen();
+});
+
+test("renders ZoneDetails with no icon", () => {
+  zone.icon = {
+    id: 1,
+    fileName: null
+  };
+
+  const mockCallback = jest.fn();
+  render(<ZoneDetails zone={zone} onIconClick={mockCallback} />);
+
+  expect(screen.getByTestId("no-image.png")).toBeOnTheScreen();
 });

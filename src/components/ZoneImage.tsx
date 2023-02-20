@@ -30,7 +30,7 @@ export class ZoneImage {
       name: "leaf.png",
       image: (
         <Image
-          testID="leafIcon"
+          testID="leaf.png"
           style={styles.image}
           source={require("./images/leaf.png")}
         />
@@ -44,7 +44,7 @@ export class ZoneImage {
       found.image
     ) : (
       <Image
-        testID="leafIcon"
+        testID="no-image.png"
         style={styles.image}
         source={require("./images/no-image.png")}
       />

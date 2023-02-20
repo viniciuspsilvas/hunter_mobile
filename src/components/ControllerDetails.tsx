@@ -15,10 +15,12 @@ export const ControllerDetails: FC<ControllerDetailsProps> = ({
 }) => {
   return (
     <View style={styles.container}>
-      <Text>I am a controller details page!</Text>
-      <View style={{ height: Dimensions.get("window").height * 0.25 }} />
+      <Text
+        style={styles.text}
+      >{`${"Welcome to \nZONE Controllers\napp!"}`}</Text>
       <FlatList
         numColumns={2}
+        contentContainerStyle={{flexGrow: 1, alignItems: 'center'}}
         style={styles.listContainer}
         data={controller.zones}
         renderItem={({ item }) => (
@@ -31,11 +33,19 @@ export const ControllerDetails: FC<ControllerDetailsProps> = ({
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%",
-    backgroundColor: "#fff",
+    flex: 1,
     alignItems: "center"
   },
-  listContainer: {}
+  text: {
+    fontSize: 25,
+    fontWeight: "500",
+    color: "#FFF",
+    marginVertical: 30
+  },
+  listContainer: {
+    width: "100%",
+    flex: 1,
+  }
 });
 
 export default ControllerDetails;

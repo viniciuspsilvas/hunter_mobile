@@ -1,8 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Controller } from "../components/ControllerDetails";
-import { Zone } from "../components/ZoneDetails";
-import { RootState } from "./store";
+import { Controller, Zone } from "../types";
 
+import { RootState } from "./store";
 
 export interface ZoneControllerState {
   data: Controller;
@@ -23,16 +22,20 @@ export const zoneControllerSlice = createSlice({
   reducers: {
     // Use the PayloadAction type to declare the contents of `action.payload`
     setData: (state, action: PayloadAction<Controller>) => {
-      // Simulate a catching error
-      try {
-        state.status = "loading";
-        state.data = action.payload;
-        state.status = "idle";
-      } catch (error) {
-        state.status = "loading";
-        state.error = `${error}`;
-        state.status = "failed";
-      }
+
+      state.data = action.payload;
+      state.status = "idle";
+
+      // // Simulate a catching error
+      // try {
+      //   state.status = "loading";
+      //   state.data = action.payload;
+      //   state.status = "idle";
+      // } catch (error) {
+      //   state.status = "loading";
+      //   state.error = `${error}`;
+      //   state.status = "failed";
+      // }
     },
     setError: (state, action: PayloadAction<string>) => {
       state.error = action.payload;
@@ -42,7 +45,9 @@ export const zoneControllerSlice = createSlice({
       const zones = state.data.zones;
 
       if (zones) {
-        const index = zones.findIndex((zone) => zone.id === action.payload.id);
+        const index = zones.findIndex(
+          (zone: Zone) => zone.id === action.payload.id
+        );
         if (index > -1) {
           const newZones = [...zones];
           newZones[index].status = {
