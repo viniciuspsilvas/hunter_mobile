@@ -17,7 +17,7 @@ test("renders 'name' property", () => {
   const mockCallback = jest.fn();
   render(<ZoneDetails zone={zone} onIconClick={mockCallback} />);
 
-  expect(screen.getByTestId("name")).toHaveTextContent("Zone 1");
+  expect(screen.getByText("Zone 1")).toBeOnTheScreen();
 });
 
 test("renders 'suspended' equals 'true", () => {
@@ -25,7 +25,7 @@ test("renders 'suspended' equals 'true", () => {
   const mockCallback = jest.fn();
   render(<ZoneDetails zone={zone} onIconClick={mockCallback} />);
 
-  expect(screen.getByTestId("suspended")).toHaveTextContent("Suspended");
+  expect(screen.getByTestId("zoneSuspended1")).toHaveTextContent("Suspended");
 });
 
 test("renders 'suspended' equals 'false", () => {
@@ -43,10 +43,10 @@ test("renders ZoneDetails with status.running = true", () => {
   const mockCallback = jest.fn();
   render(<ZoneDetails zone={zone} onIconClick={mockCallback} />);
 
-  expect(screen.getByTestId("name")).toBeOnTheScreen();
+  expect(screen.getByTestId("zoneName1")).toBeOnTheScreen();
   expect(screen.getByTestId("runningIcon")).toBeOnTheScreen();
-  expect(screen.getByTestId("status")).toBeOnTheScreen();
-  expect(screen.getByTestId("status")).toHaveTextContent("Running...");
+  expect(screen.getByTestId("zoneStatus1")).toBeOnTheScreen();
+  expect(screen.getByTestId("zoneStatus1")).toHaveTextContent("Running...");
 });
 
 test("renders ZoneDetails with status.running = false", () => {
@@ -57,7 +57,7 @@ test("renders ZoneDetails with status.running = false", () => {
   const mockCallback = jest.fn();
   render(<ZoneDetails zone={zone} onIconClick={mockCallback} />);
 
-  expect(screen.getByTestId("name")).toBeOnTheScreen();
+  expect(screen.getByTestId("zoneName1")).toBeOnTheScreen();
   expect(screen.queryByTestId("runningIcon")).toBeNull();
 });
 

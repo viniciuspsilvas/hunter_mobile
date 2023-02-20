@@ -1,6 +1,7 @@
 import { FC, PropsWithChildren } from "react";
-import { FlatList, StyleSheet } from "react-native";
+import { FlatList, StyleSheet, Text } from "react-native";
 import { Controller, Zone } from "../types";
+import NoDataFound from "./NoDataFound";
 import ZoneDetails from "./ZoneDetails";
 
 export interface ControllerDetailsProps extends PropsWithChildren {
@@ -15,6 +16,7 @@ export const ControllerDetails: FC<ControllerDetailsProps> = ({
 }) => {
   return (
     <FlatList
+      ListEmptyComponent={<NoDataFound />}
       numColumns={2}
       contentContainerStyle={styles.listContainer}
       data={controller.zones}

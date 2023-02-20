@@ -20,14 +20,19 @@ export const ZoneDetails = ({ zone, onIconClick }: ZoneDetailsProps) => {
   const isSuspended = !!zone.suspended;
 
   const icon = isRunning ? (
-    <ActivityIndicator testID="runningIcon" size="large" color="#F0EA4B" style={{ margin: 7 }} />
+    <ActivityIndicator
+      testID="runningIcon"
+      size="large"
+      color="#F0EA4B"
+      style={{ margin: 7 }}
+    />
   ) : (
     ZoneImage.GetImage(zone.icon?.fileName)
   );
 
   const handleOnClick = () => {
     if (isSuspended) {
-      Alert.alert("This zone is SUSPENDED and you can not run it.");
+      Alert.alert("This zone is SUSPENDED", "You can not run it.");
     } else {
       onIconClick(zone);
     }
@@ -44,24 +49,21 @@ export const ZoneDetails = ({ zone, onIconClick }: ZoneDetailsProps) => {
           : { backgroundColor: "#83B99E" }
       ]}
     >
-      <TouchableOpacity
-        testID="iconPressable"
-        onPress={handleOnClick}
-      >
+      <TouchableOpacity testID="iconPressable" onPress={handleOnClick}>
         {icon}
       </TouchableOpacity>
 
-      <Text style={styles.name} testID="name">
+      <Text style={styles.name} testID={`zoneName${zone.id}`}>
         {zone.name}
       </Text>
       {isSuspended && (
-        <Text style={styles.text} testID="suspended">
+        <Text style={styles.text} testID={`zoneSuspended${zone.id}`}>
           Suspended
         </Text>
       )}
 
       {isRunning && (
-        <Text style={styles.text} testID="status">
+        <Text style={styles.text} testID={`zoneStatus${zone.id}`}>
           Running...
         </Text>
       )}

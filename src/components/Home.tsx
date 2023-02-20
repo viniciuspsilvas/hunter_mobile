@@ -1,19 +1,21 @@
 import * as React from "react";
 import {
-  ActivityIndicator,
   ImageBackground,
   StyleSheet,
   Text,
   View
 } from "react-native";
-import { useData, useZoneActions } from "../hooks";
+import { useData, useZoneActions } from "../customHooks";
 import { Zone } from "../types";
 import ControllerDetails from "./ControllerDetails";
+import CustomSpinner from "./CustomSpinner";
 
 type Props = {};
 
 export function Home({}: Props) {
-  const { data, loading } = useData();
+  const componentIsMounted = React.useRef(true);
+
+  const { data, loading } = useData(componentIsMounted);
   const { toggleZoneStatus } = useZoneActions();
 
   const handleZoneClick = (zone: Zone) => {
@@ -33,10 +35,7 @@ export function Home({}: Props) {
           >{`${"Welcome to \nZONE Controllers\napp!"}`}</Text>
 
           {loading ? (
-            <>
-              <ActivityIndicator color={"#CBCBCB"} style={{ margin: 10 }} />
-              <Text style={{ color: "#CBCBCB" }}>Loading data...</Text>
-            </>
+            <CustomSpinner />
           ) : (
             <ControllerDetails
               controller={data}
