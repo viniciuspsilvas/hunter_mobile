@@ -1,5 +1,11 @@
 import * as React from "react";
-import { ActivityIndicator, ImageBackground, StyleSheet, Text, View } from "react-native";
+import {
+  ActivityIndicator,
+  ImageBackground,
+  StyleSheet,
+  Text,
+  View
+} from "react-native";
 import { useData, useZoneActions } from "../hooks";
 import { Zone } from "../types";
 import ControllerDetails from "./ControllerDetails";
@@ -28,11 +34,8 @@ export function Home({}: Props) {
 
           {loading ? (
             <>
-              <ActivityIndicator
-              color={"#CBCBCB"}
-                style={{ margin: 10 }}
-              />
-              <Text style={{color: "#CBCBCB"}}>Loading data...</Text>
+              <ActivityIndicator color={"#CBCBCB"} style={{ margin: 10 }} />
+              <Text style={{ color: "#CBCBCB" }}>Loading data...</Text>
             </>
           ) : (
             <ControllerDetails
@@ -64,6 +67,6 @@ const styles = StyleSheet.create({
     color: "#FFF",
     marginVertical: 30,
     paddingHorizontal: 60,
-    width: "100%",
+    width: "100%"
   }
 });

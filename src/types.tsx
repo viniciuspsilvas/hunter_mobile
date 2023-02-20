@@ -1,5 +1,5 @@
 export type Zone = {
-  id?: number;
+  id: number;
   name?: string;
   icon?: {
     id?: number;

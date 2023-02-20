@@ -14,9 +14,7 @@ const initialState: ZoneControllerState = {
 export const zoneControllerSlice = createSlice({
   name: "zoneController",
   initialState,
-  // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
-    // Use the PayloadAction type to declare the contents of `action.payload`
     setData: (state, action: PayloadAction<Controller>) => {
       state.data = action.payload;
     },
