@@ -19,6 +19,10 @@ This is a README file for Coding Challenge of Hunter Industries interview
 - Install the dependencies: `npm install`
 - Run the following command: `npm run test`
 
+## Running the coverage tests
+
+- Run the following command: `npm run test -- --coverage --watchAll=false`
+
 ## Running the App
 
 - Open a terminal window.
