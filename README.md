@@ -1,11 +1,22 @@
-# Basic RNTL setup
+# README
 
-This example is shows a basic modern React Native Testing Library setup in a template Expo app.
+## Introduction
 
-The app and related tests written in TypeScript, and it uses recommended practices like:
+This is a README file for Coding Challenge of Hunter Industries interview
 
-- testing large pieces of application instead of small components
-- using `screen`-based queries
-- using recommended query types, e.g. `*ByText`, `*ByLabelText`, `*ByPlaceholderText` over `byTestId`
+## Requirements
 
-You also use this repository as a reference when having issues in your RNTL configuration, as it contains the recommended Jest setup.
+- Install Expo CLI and Expo GO See: `https://docs.expo.dev/get-started/installation/`
+
+- To download and use the app, first clone the repository by executing the command: `git clone https://github.com/viniciuspsilvas/hunter_mobile.git`
+
+## Running the tests
+
+- Open a terminal window.
+- Install the dependencies: `npm install`
+- Run the following command: `npm run test`
+
+## Running the App
+
+- Open a terminal window.
+- Run the following command: `npx expo start`
